@@ -2,6 +2,7 @@
 
 import React, { useReducer } from "react"
 import InputPeople from "@/app/components/input-people"
+import DisplayResults from "@/app/components/display-results"
 
 function reducer(state, action) {
   if (action.type === 'add_person') {
@@ -37,6 +38,8 @@ const initialState = {
 export default function Home() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const personBill = Math.round(state.amount / state.people.length)
+  const totalAmount = state.amount
+  const people = state.people
 
   console.log('[DEBUG]', JSON.stringify(state,null,2))
   return (
@@ -44,40 +47,12 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div className="flex gap-12">
           <InputPeople onClick={person => dispatch({ type: 'add_person', person }) } />
-          <div className="w-96 h-96">
-            <div><p>Total: ${state.amount} {personBill ? '($' + personBill + ' cada uno)' : ''}</p></div>
-            <p className="mt-4 mb-4">Personas</p>
-            {state.people.map(
-              ({ name, amount }: { name: string, amount: number }, idx: number) => {
-                const bill = amount - personBill
-                if (bill === 0) {
-                  return (
-                    <li key={`${name}-${amount}`}>
-                      {name} pagó {amount}
-                      <button
-                        onClick={() => dispatch({ type: 'delete_person', idx })}
-                        className="ml-4 rounded-xl p-1 bg-white text-black"
-                      >
-                        Eliminar
-                      </button>
-                    </li>
-                  )
-                }
-                const status = bill > 0 ? 'debe recibir' : 'debe pagar'
-                return (
-                  <li className="mb-2" key={`${name}-${amount}`}>
-                    {name} pagó {amount}, {status} {Math.abs(bill)}
-                    <button
-                      onClick={() => dispatch({ type: 'delete_person', idx })}
-                      className="ml-4 rounded-xl p-1 bg-white text-black"
-                    >
-                      Eliminar
-                    </button>
-                  </li>
-                )
-              })
-            }
-          </div>
+          <DisplayResults
+            dispatch={dispatch}
+            people={people}
+            personBill={personBill}
+            totalAmount={totalAmount}
+          />
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
