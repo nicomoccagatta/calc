@@ -10,7 +10,7 @@ type tProps = {
 const copyClipboard = () => {
   const copyText = document.getElementById("display-results")
   if (copyText?.textContent) {
-    navigator.clipboard.writeText(copyText?.innerText.replaceAll("\n\n", "\n").replaceAll("Eliminar", ""));
+    navigator.clipboard.writeText(copyText?.innerText.replaceAll("\n\n", "\n").replaceAll("Eliminar", ""))
   }
 }
 
