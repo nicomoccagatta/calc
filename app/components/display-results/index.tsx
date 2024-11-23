@@ -1,6 +1,7 @@
 import React from "react"
 
 type tProps = {
+  className: string,
   dispatch: ({ type, idx } : { type: string, idx?: number }) => void,
   people: [],
   personBill: number,
@@ -15,14 +16,15 @@ const copyClipboard = () => {
 }
 
 export default function DisplayResults({
+  className,
   dispatch,
   people,
   personBill,
   totalAmount,
 } : tProps) {
   return (
-    <div className="grid w-max">
-      <div className="" id="display-results">
+    <div className={className}>
+      <div className="text-xl" id="display-results">
         <p>Total: ${totalAmount} {personBill ? '($' + personBill + ' cada uno)' : ''}</p>
         <p className="mt-4 mb-4">Personas</p>
         {people.map(
@@ -31,7 +33,7 @@ export default function DisplayResults({
             if (bill === 0) {
               return (
                 <li key={`${name}-${amount}`}>
-                  ✅ {name} pagó {amount}
+                  {name} pagó {amount}
                   <button
                     onClick={() => dispatch({ type: 'delete_person', idx })}
                     className="ml-4 select-none rounded-xl p-1 bg-white text-black"
@@ -44,7 +46,7 @@ export default function DisplayResults({
             const status = bill > 0 ? 'debe recibir' : 'debe pagar'
             return (
               <li className="mb-2" key={`${name}-${amount}`}>
-                ❌ {name} pagó {amount}, {status} {Math.abs(bill)}
+                {bill < 0 ? '❌ ' : ''}{name} pagó {amount}, {status} {Math.abs(bill)}
                 <button
                   onClick={() => dispatch({ type: 'delete_person', idx })}
                   className="ml-4 select-none rounded-xl p-1 bg-white text-black"
@@ -56,7 +58,9 @@ export default function DisplayResults({
           })
         }
       </div>
-      <button className="bg-white text-black p-2 rounded-xl mt-8 max-h-12" onClick={copyClipboard}>📋 Copy text</button>
+      <div className="flex justify-center">
+        <button className="bg-white text-black p-2 px-12 rounded-xl max-h-12 max-w-96" onClick={copyClipboard}>📋 Copy text</button>
+      </div>
     </div>
   )
 }
