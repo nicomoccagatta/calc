@@ -8,7 +8,7 @@ export default function InputPeople({
   onClick: ({ name, amount }: { name: string, amount: number | '' }) => void,
 }) {
   const [name, setName] = useState("")
-  const [amount, setAmount] = useState<number | ''>('')
+  const [amount, setAmount] = useState<number | ''>(0)
   const nameRef = useRef<HTMLInputElement>(null)
 
   const handleOKClick = () => {
@@ -16,7 +16,7 @@ export default function InputPeople({
 
     onClick({ name, amount })
     setName("")
-    setAmount('')
+    setAmount(0)
     nameRef?.current?.focus()
   }
 
@@ -40,7 +40,7 @@ export default function InputPeople({
           type="number"
           name="amount"
           placeholder="¿Cuanto gasto?"
-          onChange={e => setAmount(Number(e.target.value))}
+          onChange={e => setAmount(e.target.value ? Number(e.target.value) : '')}
           value={amount}
         />
         <button className="bg-blue-800 h-12 rounded-2xl" onClick={handleOKClick}>Agregar</button>
