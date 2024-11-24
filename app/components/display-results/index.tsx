@@ -17,6 +17,7 @@ const copyClipboard = () => {
 
 export default function DisplayResults({
   className,
+  debts,
   dispatch,
   people,
   personBill,
@@ -33,7 +34,7 @@ export default function DisplayResults({
             if (bill === 0) {
               return (
                 <li key={`${name}-${amount}`}>
-                  {name} pagó {amount}
+                  {name}{amount && amount !== 0 ? ` pagó ${amount}` : ''} 
                   <button
                     onClick={() => dispatch({ type: 'delete_person', idx })}
                     className="ml-4 select-none rounded-xl p-1 bg-white text-black"
@@ -46,7 +47,7 @@ export default function DisplayResults({
             const status = bill > 0 ? 'debe recibir' : 'debe pagar'
             return (
               <li className="mb-2" key={`${name}-${amount}`}>
-                {bill < 0 ? '❌ ' : ''}{name} pagó {amount}, {status} {Math.abs(bill)}
+                {bill < 0 ? '❌ ' : ''}{name}{amount && amount !== 0 ? ` pagó ${amount}` : ''}, {status} {Math.abs(bill)}
                 <button
                   onClick={() => dispatch({ type: 'delete_person', idx })}
                   className="ml-4 select-none rounded-xl p-1 bg-white text-black"
