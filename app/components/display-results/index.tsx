@@ -2,6 +2,7 @@ import React from "react"
 
 type tProps = {
   className: string,
+  debts: [],
   dispatch: ({ type, idx } : { type: string, idx?: number }) => void,
   people: [],
   personBill: number,
@@ -26,34 +27,29 @@ export default function DisplayResults({
   return (
     <div className={className}>
       <div className="text-xl" id="display-results">
-        <p>Total: ${totalAmount} {personBill ? '($' + personBill + ' cada uno)' : ''}</p>
+        <p>Total: ${totalAmount.toLocaleString()} {personBill ? '($' + personBill.toLocaleString() + ' cada uno)' : ''}</p>
         <p className="mt-4 mb-4">Personas</p>
         {people.map(
           ({ name, amount }: { name: string, amount: number }, idx: number) => {
-            const bill = amount - personBill
-            if (bill === 0) {
-              return (
-                <li key={`${name}-${amount}`}>
-                  {name}{amount && amount !== 0 ? ` pagó ${amount}` : ''} 
-                  <button
-                    onClick={() => dispatch({ type: 'delete_person', idx })}
-                    className="ml-4 select-none rounded-xl p-1 bg-white text-black"
-                  >
-                    Eliminar
-                  </button>
-                </li>
-              )
-            }
-            const status = bill > 0 ? 'debe recibir' : 'debe pagar'
             return (
-              <li className="mb-2" key={`${name}-${amount}`}>
-                {bill < 0 ? '❌ ' : ''}{name}{amount && amount !== 0 ? ` pagó ${amount}` : ''}, {status} {Math.abs(bill)}
-                <button
-                  onClick={() => dispatch({ type: 'delete_person', idx })}
-                  className="ml-4 select-none rounded-xl p-1 bg-white text-black"
-                >
-                  Eliminar
-                </button>
+              <li key={`${name}-${amount}`} className="list-none mb-2">
+              {`▶︎ ${name}${amount? ` pagó $${amount.toLocaleString()}` : ''} `}
+              <button
+                onClick={() => dispatch({ type: 'delete_person', idx })}
+                className="ml-4 select-none rounded-xl p-1 bg-white text-black"
+              >
+                Eliminar
+              </button>
+            </li>
+            )
+          })
+        }
+        <p className="mt-4 mb-4">Deudas</p>
+        {debts.map(
+          ({ nameFrom, nameTo, debtAmount }: { nameFrom: string, nameTo: string, debtAmount: number }, idx: number) => {
+            return (
+              <li className="list-none mb-2" key={`${nameFrom}-${nameTo}-${debtAmount}`}>
+                {`❌ ${nameFrom} debe pagar a ${nameTo}: $${debtAmount.toLocaleString()}`}
               </li>
             )
           })
