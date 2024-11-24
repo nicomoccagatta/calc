@@ -1,15 +1,17 @@
+import {
+  Debt,
+  Person,
+} from "@/app/types"
+
 type tProps = {
-  people: {
-    name: string,
-    amount: number,
-  }[],
+  people: Person[],
   personBill: number,
 }
 
 export function calculateDebts({
   people = [],
   personBill = 0,
-} : tProps) {
+} : tProps): Debt[] {
   const debts = []
   let peopleAux = people.map(person => ({
     name: person.name,

@@ -1,10 +1,16 @@
 import React from "react"
+import {
+  Action,
+  Debt,
+  Person,
+} from "@/app/types"
 
 type tProps = {
   className: string,
-  debts: [],
-  dispatch: ({ type, idx } : { type: string, idx?: number }) => void,
-  people: [],
+  debts: Debt[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dispatch: ({ type, payload } : Action) => void,
+  people: Person[],
   personBill: number,
   totalAmount: number,
 }
@@ -35,7 +41,7 @@ export default function DisplayResults({
               <li key={`${name}-${amount}`} className="list-none mb-2">
               {`▶︎ ${name}${amount? ` pagó $${amount.toLocaleString()}` : ''} `}
               <button
-                onClick={() => dispatch({ type: 'delete_person', idx })}
+                onClick={() => dispatch({ type: 'delete_person', payload: idx })}
                 className="ml-4 select-none rounded-xl p-1 bg-white text-black"
               >
                 Eliminar
@@ -46,7 +52,7 @@ export default function DisplayResults({
         }
         <p className="mt-4 mb-4">Deudas</p>
         {debts.map(
-          ({ nameFrom, nameTo, debtAmount }: { nameFrom: string, nameTo: string, debtAmount: number }, idx: number) => {
+          ({ nameFrom, nameTo, debtAmount }: { nameFrom: string, nameTo: string, debtAmount: number }) => {
             return (
               <li className="list-none mb-2" key={`${nameFrom}-${nameTo}-${debtAmount}`}>
                 {`❌ ${nameFrom} debe pagar a ${nameTo}: $${debtAmount.toLocaleString()}`}

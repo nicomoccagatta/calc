@@ -4,10 +4,11 @@ import React, { useReducer } from "react"
 import InputPeople from "@/app/components/input-people"
 import DisplayResults from "@/app/components/display-results"
 import { calculateDebts } from "@/app/utils"
+import { State, Action } from "@/app/types"
 
-function reducer(state, action) {
+function reducer(state: State, action: Action): State {
   if (action.type === 'add_person') {
-    const { name, amount } = action.person
+    const { name, amount } = action.payload
     const newPeople = [
       ...state.people,
       { name, amount },
@@ -18,6 +19,7 @@ function reducer(state, action) {
     const debts = calculateDebts({ people: newPeople, personBill: newPersonBill })
 
     return {
+      ...state,
       debts,
       people: newPeople,
       personBill: newPersonBill,
@@ -26,9 +28,9 @@ function reducer(state, action) {
   }
 
   if (action.type === 'delete_person') {
-    const newTotalAmount = state.totalAmount - state.people[action.idx].amount
+    const newTotalAmount = state.totalAmount - state.people[action.payload].amount
     const newPeople = [...state.people]
-    newPeople.splice(action.idx, 1)
+    newPeople.splice(action.payload, 1)
     const newTotalPeople = newPeople.length
     const newPersonBill = Math.round(newTotalAmount / newTotalPeople)
     const debts = calculateDebts({ people: newPeople, personBill: newPersonBill })
@@ -63,7 +65,7 @@ export default function Home() {
         <div className="flex justify-around w-full">
           <InputPeople
             className="w-5/12"
-            onClick={person => dispatch({ type: 'add_person', person }) }
+            onClick={person => dispatch({ type: 'add_person', payload: person }) }
           />
           <DisplayResults
             className="grid w-5/12"
