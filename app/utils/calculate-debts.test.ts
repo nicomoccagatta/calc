@@ -36,3 +36,18 @@ test('calculateDebts should return empty if only 1 person', () => {
   // Assert
   assert.deepEqual(debts, [])
 })
+
+test('calculateDebts should return empty if more than 1 person but they are paired', () => {
+  // Arrange
+  const people = [
+    { name: 'Nico', amount: 2000},
+    { name: 'Mica', amount: 2000},
+  ]
+  const personBill = 2000
+
+  // Act
+  const debts = calculateDebts({ people, personBill })
+
+  // Assert
+  assert.deepEqual(debts, [])
+})

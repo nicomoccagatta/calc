@@ -16,6 +16,7 @@ export function calculateDebts({
     status: person.amount - personBill,
   }))
 
+  peopleAux = peopleAux.filter(person => person.status !== 0)
   while (peopleAux.length > 1) {
     const receiverPersonIdx = peopleAux.findIndex(p => p.status > 0)
     const maxAmountToReceive = peopleAux[receiverPersonIdx].status

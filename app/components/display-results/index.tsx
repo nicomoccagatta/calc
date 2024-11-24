@@ -55,7 +55,7 @@ export default function DisplayResults({
           })
         }
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-start">
         <button className="bg-white text-black p-2 px-12 rounded-xl max-h-12 max-w-96" onClick={copyClipboard}>📋 Copy text</button>
       </div>
     </div>
