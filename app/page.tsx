@@ -46,6 +46,7 @@ function reducer(state, action) {
 }
 
 const initialState = {
+  debts: [],
   people: [],
   personBill: 0,
   totalAmount: 0,

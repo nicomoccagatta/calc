@@ -1,4 +1,4 @@
-import { calculateDebts } from './calculate-debts'
+import { calculateDebts } from './calculate-debts.ts'
 
 import assert from 'node:assert/strict'
 import test from 'node:test'
@@ -18,7 +18,7 @@ test('happy path misc/debts-calc.md', () => {
 
   // Assert
   assert.deepEqual(debts, [
-    { nameFrom: 'Pepe', nameTo: 'Nico', amount: 1000 },
-    { nameFrom: 'Pepa', nameTo: 'Mica', amount: 1000 },
+    { nameFrom: 'Pepe', nameTo: 'Nico', debtAmount: 1000 },
+    { nameFrom: 'Pepa', nameTo: 'Mica', debtAmount: 1000 },
   ])
 })
