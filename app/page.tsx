@@ -61,14 +61,14 @@ export default function Home() {
   console.log('[DEBUG]', JSON.stringify(state,null,2))
   return (
     <div className="grid items-center justify-items-center min-h-screen p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center w-full">
-        <div className="flex justify-around w-full">
+      <main className="flex flex-col gap-8 lg:row-start-2 items-center w-full">
+        <div className="lg:flex justify-around w-full">
           <InputPeople
-            className="w-5/12"
+            className="lg:w-5/12 mb-8"
             onClick={person => dispatch({ type: 'add_person', payload: person }) }
           />
           <DisplayResults
-            className="grid w-5/12"
+            className="lg:w-5/12"
             debts={debts}
             dispatch={dispatch}
             people={people}
