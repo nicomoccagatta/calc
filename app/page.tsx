@@ -8,10 +8,10 @@ import { State, Action } from "@/app/types"
 
 function reducer(state: State, action: Action): State {
   if (action.type === 'add_person') {
-    const { name, amount } = action.payload
+    const { name, concept, amount } = action.payload
     const newPeople = [
       ...state.people,
-      { name, amount },
+      { name, concept, amount },
     ]
     const newTotalAmount = state.totalAmount + amount
     const newTotalPeople = state.people.length + 1

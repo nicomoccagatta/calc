@@ -6,6 +6,7 @@ export type Debt = {
 
 export type Person = {
   name: string,
+  concept: string,
   amount: number,
 }
 

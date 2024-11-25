@@ -34,12 +34,12 @@ export default function DisplayResults({
     <div className={className}>
       <div className="text-xl" id="display-results">
         <p>Total: ${totalAmount.toLocaleString()} {personBill ? '($' + personBill.toLocaleString() + ' cada uno)' : ''}</p>
-        {people.length ? <p className="mt-4 mb-4">{`Personas (${people.length})`}</p> : null}
+        {people.length ? <p className="mt-8 mb-2">{`Personas (${people.length})`}</p> : null}
         {people.length ? people.map(
-          ({ name, amount }: { name: string, amount: number }, idx: number) => {
+          ({ name, concept, amount }: { name: string, concept: string, amount: number }, idx: number) => {
             return (
               <li key={`${name}-${amount}`} className="list-none mb-2">
-              {`▶︎ ${name}${amount? ` pagó $${amount.toLocaleString()}` : ''} `}
+              {`▶︎ ${name}${amount? ` pagó $${amount.toLocaleString()}` : ''}${concept? ` en ${concept}` : ''}`}
               <button
                 onClick={() => dispatch({ type: 'delete_person', payload: idx })}
                 className="ml-4 select-none rounded-xl p-1 bg-white text-black"
@@ -50,7 +50,7 @@ export default function DisplayResults({
             )
           }) : null
         }
-        {debts.length ? <p className="mt-4 mb-4">Deudas</p> : null}
+        {debts.length ? <p className="mt-8 mb-2">Deudas</p> : null}
         {debts.length ? debts.map(
           ({ nameFrom, nameTo, debtAmount }: { nameFrom: string, nameTo: string, debtAmount: number }) => {
             return (
@@ -61,7 +61,7 @@ export default function DisplayResults({
           }) : null
         }
       </div>
-      {debts.length ? <div className="flex justify-start">
+      {debts.length ? <div className="flex justify-start mt-8">
         <button className="bg-white text-black p-2 px-12 rounded-xl max-h-12 max-w-96" onClick={copyClipboard}>📋 Copiar texto</button>
       </div> : null }
     </div>
