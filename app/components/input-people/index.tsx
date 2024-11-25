@@ -22,7 +22,7 @@ export default function InputPeople({
 
   return (
     <div className={className}>
-      <form className="grid bg-blue-200 rounded-xl pt-4 px-8 pb-48 w-full h-full" onClick={e => e.preventDefault()}>
+      <form className="grid bg-blue-200 rounded-xl p-8 w-full h-full" onClick={e => e.preventDefault()}>
         <label className="text-black px-1 mb-1">Nombre</label>
         <input
           autoFocus
