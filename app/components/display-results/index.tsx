@@ -34,7 +34,7 @@ export default function DisplayResults({
     <div className={className}>
       <div className="text-xl" id="display-results">
         <p>Total: ${totalAmount.toLocaleString()} {personBill ? '($' + personBill.toLocaleString() + ' cada uno)' : ''}</p>
-        {people.length ? <p className="mt-4 mb-4">Personas</p> : null}
+        {people.length ? <p className="mt-4 mb-4">{`Personas (${people.length})`}</p> : null}
         {people.length ? people.map(
           ({ name, amount }: { name: string, amount: number }, idx: number) => {
             return (
