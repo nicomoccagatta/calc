@@ -5,15 +5,16 @@ import InputPeople from "@/app/components/input-people"
 import DisplayResults from "@/app/components/display-results"
 import { calculateDebts } from "@/app/utils"
 import { State, Action } from "@/app/types"
+import { totalPaymentsAmountCalc } from "@/app/utils"
 
 function reducer(state: State, action: Action): State {
   if (action.type === 'add_person') {
-    const { name, concept, amount } = action.payload
+    const { name, bankDetails, payments } = action.payload
     const newPeople = [
       ...state.people,
-      { name, concept, amount },
+      { name, bankDetails, payments },
     ]
-    const newTotalAmount = state.totalAmount + amount
+    const newTotalAmount = state.totalAmount + totalPaymentsAmountCalc(payments)
     const newTotalPeople = state.people.length + 1
     const newPersonBill = Math.round(newTotalAmount / newTotalPeople)
     const debts = calculateDebts({ people: newPeople, personBill: newPersonBill })
@@ -28,9 +29,10 @@ function reducer(state: State, action: Action): State {
   }
 
   if (action.type === 'delete_person') {
-    const newTotalAmount = state.totalAmount - state.people[action.payload].amount
+    const { idx } = action.payload
+    const newTotalAmount = state.totalAmount - totalPaymentsAmountCalc(state.people[idx].payments)
     const newPeople = [...state.people]
-    newPeople.splice(action.payload, 1)
+    newPeople.splice(idx, 1)
     const newTotalPeople = newPeople.length
     const newPersonBill = Math.round(newTotalAmount / newTotalPeople)
     const debts = calculateDebts({ people: newPeople, personBill: newPersonBill })

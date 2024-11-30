@@ -4,10 +4,15 @@ export type Debt = {
   debtAmount: number,
 }
 
-export type Person = {
-  name: string,
+export type Payment = {
   concept: string,
   amount: number,
+}
+
+export type Person = {
+  name: string,
+  bankDetails: string,
+  payments: Payment[]
 }
 
 export type State = {

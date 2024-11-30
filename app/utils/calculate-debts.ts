@@ -1,3 +1,4 @@
+import { totalPaymentsAmountCalc } from "@/app/utils"
 import {
   Debt,
   Person,
@@ -15,7 +16,7 @@ export function calculateDebts({
   const debts = []
   let peopleAux = people.map(person => ({
     name: person.name,
-    status: person.amount - personBill,
+    status: totalPaymentsAmountCalc(person.payments) - personBill,
   }))
 
   peopleAux = peopleAux.filter(person => person.status !== 0)
