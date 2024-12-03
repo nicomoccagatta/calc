@@ -6,6 +6,9 @@ import DisplayResults from "@/app/components/display-results"
 import { calculateDebts } from "@/app/utils"
 import { State, Action } from "@/app/types"
 import { totalPaymentsAmountCalc } from "@/app/utils"
+import { Card, Text } from "@radix-ui/themes"
+import "@radix-ui/themes/styles.css"
+import "./theme-overrides.css"
 
 function reducer(state: State, action: Action): State {
   if (action.type === 'add_person') {
@@ -62,24 +65,30 @@ export default function Home() {
 
   console.log('[DEBUG]', JSON.stringify(state,null,2))
   return (
-    <div className="grid items-center justify-items-center min-h-screen p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 lg:row-start-2 items-center w-full">
-        <div className="lg:flex justify-around w-full">
-          <InputPeople
-            className="lg:w-5/12 mb-8"
-            onClick={person => dispatch({ type: 'add_person', payload: person }) }
-          />
-          <DisplayResults
-            className="lg:w-5/12"
-            debts={debts}
-            dispatch={dispatch}
-            people={people}
-            personBill={personBill}
-            totalAmount={totalAmount}
-          />
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
+    <div className="pt-8">
+      {/* @ts-expect-error: Let's ignore a compile error like this for custom styling */}
+      <Card size="3" variant="classic" className="min-w-full" style={{ "--card-border-radius": 'none' }}>
+        <Text align="center" as="div" color="bronze" className="md:text-6xl sm:text-4xl text-3xl">CUENTAS CLARAS CONSERVAN LA AMISTAD</Text>
+      </Card>
+      <div className="grid items-center justify-items-center min-h-screen p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
+        <main className="flex flex-col gap-8 lg:row-start-1 items-center w-full">
+          <div className="lg:flex justify-around w-full">
+            <InputPeople
+              className="lg:w-4/12 mb-8 h-full"
+              onClick={person => dispatch({ type: 'add_person', payload: person }) }
+            />
+            <DisplayResults
+              className="lg:w-6/12"
+              debts={debts}
+              dispatch={dispatch}
+              people={people}
+              personBill={personBill}
+              totalAmount={totalAmount}
+            />
+          </div>
+        </main>
+        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
+      </div>
     </div>
   )
 }

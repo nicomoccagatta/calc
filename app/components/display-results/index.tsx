@@ -39,7 +39,7 @@ export default function DisplayResults({
 
   return (
     <div className={className}>
-      <div className="text-xl" id="display-results">
+      <div className="text-xl bg-white rounded-lg p-8" id="display-results">
         <p>{totalAmountContent}</p>
         {/* @TODO: Componentize People below */}
         {people.length ? <p className="mt-8 mb-2">{`Personas (${people.length})`}</p> : null}
@@ -57,7 +57,7 @@ export default function DisplayResults({
               {`▶︎ ${name}${amountPayed}${conceptsJoined}`}
               <button
                 onClick={() => dispatch({ type: 'delete_person', payload: { idx } })}
-                className="ml-4 select-none rounded-xl p-1 bg-white text-black"
+                className="ml-4 select-none rounded-xl px-2 bg-black text-white"
               >
                 Eliminar
               </button>
@@ -82,7 +82,12 @@ export default function DisplayResults({
         }
       </div>
       {debts.length ? <div className="flex justify-start mt-8">
-        <button className="bg-white text-black p-2 px-12 rounded-xl max-h-12 max-w-96" onClick={() => copyClipboard(people.length)}>📋 Copiar texto</button>
+        <button
+          className="bg-white text-black p-2 px-12 rounded-xl max-h-12 max-w-96"
+          onClick={() => copyClipboard(people.length)}
+        >
+          📋 Copiar texto
+        </button>
       </div> : null }
     </div>
   )

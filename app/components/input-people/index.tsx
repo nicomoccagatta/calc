@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react"
 import type { Payment, Person } from '@/app/types'
+import { Card, Text, Button, Flex, TextField } from "@radix-ui/themes"
+import * as Form from "@radix-ui/react-form"
+import { Cross1Icon, PlusIcon } from "@radix-ui/react-icons"
 
 const defaultPayment = {
   concept: '',
@@ -51,78 +54,100 @@ export default function InputPeople({
   }
 
   return (
-    <div className={className}>
-      <form
-        className="grid bg-blue-200 rounded-xl p-8 w-full"
-        onClick={e => e.preventDefault()}
+    <Card className={className}>
+      <Form.Root
+        className="grid p-4 w-full "
+        onSubmit={e => e.preventDefault()}
       >
-        <label className="text-black px-1 mb-1">Nombre</label>
-        <input
-          autoFocus
-          className="mb-4 rounded-xl px-2 text-black h-12"
-          type="text"
-          name="name"
-          placeholder="Nombre"
-          onChange={e => setName(e.target.value)}
-          value={name}
-          ref={nameRef}
-        />
-        <label className="text-black px-1 mb-1">CBU/Alias</label>
-        <input
-          autoFocus
-          className="mb-4 rounded-xl px-2 text-black h-12"
-          type="text"
-          name="bankDetails"
-          placeholder="CBU/Alias"
-          onChange={e => setBankDetails(e.target.value)}
-          value={bankDetails}
-        />
-        <label className="text-black px-1 mb-1">
-          Pagos
-          <button
-            onClick={addPayment}
-            className="bg-blue-800 text-white px-2 ml-2 rounded-full"
-            type="button"
-          >
-            +
-          </button>
-        </label>
-        {payments.map((payment, idx) => (
-          <div className="flex mb-4" key={idx}>
-            <input
-              className="w-4/6 rounded-l-xl text-black px-2 mr-2 h-12"
-              type="text"
-              name="concept"
-              placeholder="Concepto (opcional)"
-              onChange={e => setConcept(e.target.value, idx)}
-              value={payment.concept}
-            />
-            <input
-              className="w-2/6 rounded-r-xl text-center text-black px-2 h-12"
-              type="number"
-              name="amount"
-              placeholder="$$$"
-              onChange={e => setAmount(Number(e.target.value), idx)}
-              value={payment.amount || ''}
-            />
-            <button
-              className="bg-blue-800 text-white px-4 ml-2 rounded-full disabled:bg-gray-500"
-              onClick={() => removePayment(idx)}
-              disabled={payments.length === 1}
-              type="button"
-            >
-              X
-            </button>
-          </div>
-        ))}
-        <button
-          className="bg-blue-800 h-12 rounded-2xl"
-          onClick={handleOKClick}
-          type="submit"
-        >
-          Agregar persona
-        </button>
-      </form>
-    </div>
+        <Form.Field name="name" className="p-4">
+          <Text as="div" weight="bold" mb="1" ml="2" size="3" color="bronze">
+            Nombre
+          </Text>
+          <TextField.Root
+            placeholder="Nombre"
+            radius="full"
+            size="3"
+            color="blue"
+            variant="soft"
+            autoFocus
+            onChange={e => setName(e.target.value)}
+            value={name}
+            ref={nameRef}
+          />
+        </Form.Field>
+
+        <Form.Field name="bankDetails" className="p-4">
+          <Text as="div" weight="bold" mb="1" ml="2" size="3" color="bronze">
+            Alias - CBU
+          </Text>
+          <TextField.Root
+            placeholder="Alias - CBU"
+            radius="full"
+            size="3"
+            color="blue"
+            variant="soft"
+            onChange={e => setBankDetails(e.target.value)}
+            value={bankDetails}
+          />
+        </Form.Field>
+
+        <Form.Field name="payments">
+          <Flex direction="column" gap="4" p="4">
+            <Flex align="center">
+              <Text as="div" weight="bold" ml="2" mr="2" size="3" color="bronze">
+                Pagos
+              </Text>
+              <Button radius="full" size="1" variant="outline" onClick={addPayment} type="button">
+                <PlusIcon />
+              </Button>
+            </Flex>
+            {payments.map((payment, idx) => (
+              <Flex align="center" key={idx}>
+                <TextField.Root
+                  placeholder="Concepto"
+                  size="3"
+                  radius="full"
+                  className="w-4/6"
+                  color="blue"
+                  variant="soft"
+                  onChange={e => setConcept(e.target.value, idx)}
+                  value={payment.concept}
+                />
+                <TextField.Root
+                  placeholder="Monto"
+                  size="3"
+                  radius="full"
+                  ml="2"
+                  className="w-2/6"
+                  color="blue"
+                  variant="soft"
+                  onChange={e => setAmount(Number(e.target.value), idx)}
+                  value={payment.amount || ''}
+                />
+                <Button
+                  radius="full"
+                  size="1"
+                  variant="outline"
+                  ml="2"
+                  disabled={payments.length === 1}
+                  onClick={() => removePayment(idx)}
+                  type="button"
+                >
+                  <Cross1Icon />
+                </Button>
+              </Flex>
+            ))}
+          </Flex>
+        </Form.Field>
+
+        <Form.Submit asChild>
+          <Flex direction="column" gap="4" p="4">
+            <Button radius="full" size="4" variant="classic" onClick={handleOKClick}>
+              Agregar Persona
+            </Button>
+          </Flex>
+        </Form.Submit>
+      </Form.Root>
+    </Card>
   )
 }

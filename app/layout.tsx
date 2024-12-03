@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
+import { Theme } from "@radix-ui/themes"
+import bg from '../public/background.jpeg'
 import "./globals.css"
 
 const geistSans = localFont({
@@ -28,7 +30,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Theme
+          accentColor="orange"
+          grayColor="slate"
+          // appearance="dark"
+          radius="full"
+          style={{ backgroundImage: `url(${bg.src})`, backgroundSize: 'cover' }}
+        >
+          {children}
+        </Theme>
       </body>
     </html>
   )
