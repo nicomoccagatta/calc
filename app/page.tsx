@@ -70,8 +70,8 @@ export default function Home() {
       <Card size="3" variant="classic" className="min-w-full" style={{ "--card-border-radius": 'none' }}>
         <Text align="center" as="div" color="bronze" className="md:text-6xl sm:text-4xl text-3xl">CUENTAS CLARAS CONSERVAN LA AMISTAD</Text>
       </Card>
-      <div className="grid items-center justify-items-center min-h-screen p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col gap-8 lg:row-start-1 items-center w-full">
+      <div className="grid items-center justify-items-center p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
+        <main className="flex flex-col gap-8 items-center w-full">
           <div className="lg:flex justify-around w-full">
             <InputPeople
               className="lg:w-4/12 mb-8 h-full"
@@ -87,7 +87,6 @@ export default function Home() {
             />
           </div>
         </main>
-        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
       </div>
     </div>
   )
