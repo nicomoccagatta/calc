@@ -142,7 +142,7 @@ export default function InputPeople({
 
         <Form.Submit asChild>
           <Flex direction="column" gap="4" p="4">
-            <Button radius="full" size="4" variant="classic" onClick={handleOKClick}>
+            <Button radius="full" size="4" variant="classic" onClick={handleOKClick} disabled={name === ""}>
               Agregar Persona
             </Button>
           </Flex>
