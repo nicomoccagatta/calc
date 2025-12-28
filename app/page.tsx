@@ -6,7 +6,7 @@ import DisplayResults from "@/app/components/display-results"
 import { calculateDebts } from "@/app/utils"
 import { State, Action } from "@/app/types"
 import { totalPaymentsAmountCalc } from "@/app/utils"
-import { Card, Text } from "@radix-ui/themes"
+import { Card, Text, Link } from "@radix-ui/themes"
 import "@radix-ui/themes/styles.css"
 import "./theme-overrides.css"
 
@@ -138,6 +138,15 @@ export default function Home() {
           </div>
         </main>
       </div>
+      {/* @ts-expect-error: Let's ignore a compile error like this for custom styling */}
+      <Card size="2" variant="classic" className="min-w-full mt-8" style={{ "--card-border-radius": 'none' }}>
+        <Text align="center" as="div" size="2" color="gray">
+          Hecho con ❤️ por{' '}
+          <Link href="https://www.nicomoccagatta.com" target="_blank" rel="noopener noreferrer" color="orange">
+            Nicolas Moccagatta
+          </Link>
+        </Text>
+      </Card>
     </div>
   )
 }
