@@ -12,9 +12,11 @@ const defaultPayment = {
 export default function InputPeople({
   className,
   onClick,
+  translations,
 }: {
   className: string,
   onClick: ({ name, bankDetails, payments }: Person) => void,
+  translations: Record<string, string>,
 }) {
   const [name, setName] = useState<string>("")
   const [bankDetails, setBankDetails] = useState<string>("")
@@ -61,10 +63,10 @@ export default function InputPeople({
       >
         <Form.Field name="name" className="p-4">
           <Text as="div" weight="bold" mb="1" ml="2" size="3" color="bronze">
-            Nombre
+            {translations.name}
           </Text>
           <TextField.Root
-            placeholder="Nombre"
+            placeholder={translations.namePlaceholder}
             radius="full"
             size="3"
             color="blue"
@@ -78,10 +80,10 @@ export default function InputPeople({
 
         <Form.Field name="bankDetails" className="p-4">
           <Text as="div" weight="bold" mb="1" ml="2" size="3" color="bronze">
-            Alias - CBU
+            {translations.bankDetails}
           </Text>
           <TextField.Root
-            placeholder="Alias - CBU"
+            placeholder={translations.bankDetailsPlaceholder}
             radius="full"
             size="3"
             color="blue"
@@ -95,7 +97,7 @@ export default function InputPeople({
           <Flex direction="column" gap="4" p="4">
             <Flex align="center">
               <Text as="div" weight="bold" ml="2" mr="2" size="3" color="bronze">
-                Pagos
+                {translations.payments}
               </Text>
               <Button radius="full" size="1" variant="outline" onClick={addPayment} type="button">
                 <PlusIcon />
@@ -104,7 +106,7 @@ export default function InputPeople({
             {payments.map((payment, idx) => (
               <Flex align="center" key={idx}>
                 <TextField.Root
-                  placeholder="Concepto"
+                  placeholder={translations.concept}
                   size="3"
                   radius="full"
                   className="w-4/6"
@@ -114,7 +116,7 @@ export default function InputPeople({
                   value={payment.concept}
                 />
                 <TextField.Root
-                  placeholder="Monto"
+                  placeholder={translations.amount}
                   size="3"
                   radius="full"
                   ml="2"
@@ -143,7 +145,7 @@ export default function InputPeople({
         <Form.Submit asChild>
           <Flex direction="column" gap="4" p="4">
             <Button radius="full" size="4" variant="classic" onClick={handleOKClick} disabled={name === ""}>
-              Agregar Persona
+              {translations.addPerson}
             </Button>
           </Flex>
         </Form.Submit>

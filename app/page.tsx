@@ -1,12 +1,13 @@
 "use client"
 
-import React, { useReducer } from "react"
+import React, { useReducer, useState, useMemo } from "react"
 import InputPeople from "@/app/components/input-people"
 import DisplayResults from "@/app/components/display-results"
 import { calculateDebts } from "@/app/utils"
 import { State, Action } from "@/app/types"
 import { totalPaymentsAmountCalc } from "@/app/utils"
-import { Card, Text, Link } from "@radix-ui/themes"
+import { Card, Text, Link, Flex, Switch } from "@radix-ui/themes"
+import { translations, Language } from "@/app/translations"
 import "@radix-ui/themes/styles.css"
 import "./theme-overrides.css"
 
@@ -62,6 +63,8 @@ const initialState = {
 export default function Home() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { debts, people, personBill, totalAmount } = state
+  const [language, setLanguage] = useState<Language>('es')
+  const t = useMemo(() => translations[language], [language])
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -116,9 +119,24 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <div className="absolute top-2 right-4">
+        <Flex align="center" gap="3">
+          <Text size="2" weight="bold" style={{ opacity: language === 'es' ? 1 : 0.5 }}>
+            🇪🇸 ES
+          </Text>
+          <Switch
+            size="2"
+            checked={language === 'en'}
+            onCheckedChange={(checked) => setLanguage(checked ? 'en' : 'es')}
+          />
+          <Text size="2" weight="bold" style={{ opacity: language === 'en' ? 1 : 0.5 }}>
+            🇬🇧 EN
+          </Text>
+        </Flex>
+      </div>
       {/* @ts-expect-error: Let's ignore a compile error like this for custom styling */}
-      <Card size="3" variant="classic" className="min-w-full" style={{ "--card-border-radius": 'none' }}>
-        <Text align="center" as="div" color="bronze" className="md:text-6xl sm:text-4xl text-3xl">CUENTAS CLARAS CONSERVAN LA AMISTAD</Text>
+      <Card size="3" variant="classic" className="min-w-full relative" style={{ "--card-border-radius": 'none' }}>
+        <Text align="center" as="div" color="bronze" className="md:text-6xl sm:text-4xl text-3xl">{t.header}</Text>
       </Card>
       <div className="grid items-center justify-items-center p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col gap-8 items-center w-full">
@@ -126,6 +144,7 @@ export default function Home() {
             <InputPeople
               className="lg:w-4/12 mb-8 h-full"
               onClick={person => dispatch({ type: 'add_person', payload: person }) }
+              translations={t}
             />
             <DisplayResults
               className="lg:w-6/12"
@@ -134,6 +153,7 @@ export default function Home() {
               people={people}
               personBill={personBill}
               totalAmount={totalAmount}
+              translations={t}
             />
           </div>
         </main>
@@ -141,7 +161,7 @@ export default function Home() {
       {/* @ts-expect-error: Let's ignore a compile error like this for custom styling */}
       <Card size="2" variant="classic" className="min-w-full mt-8" style={{ "--card-border-radius": 'none' }}>
         <Text align="center" as="div" size="2" color="gray">
-          Hecho con ❤️ por{' '}
+          {t.madeBy}{' '}
           <Link href="https://www.nicomoccagatta.com" target="_blank" rel="noopener noreferrer" color="orange">
             Nicolas Moccagatta
           </Link>

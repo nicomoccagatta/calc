@@ -87,7 +87,7 @@ export default async function Image() {
             marginTop: 20,
           }}
         >
-          "Cuentas claras conservan la amistad"
+          &ldquo;Cuentas claras conservan la amistad&rdquo;
         </div>
         <div
           style={{
