@@ -16,8 +16,55 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Calculadora - Division de gastos",
-  description: "App utilitaria para division de gastos",
+  title: "Cuentas Claras - Calculadora de Gastos Compartidos | Split Event Costs",
+  description: "Cuentas Claras: calculadora gratuita online para dividir gastos en eventos, viajes y salidas grupales. Porque cuentas claras conservan la amistad. Free expense splitter tool for events, trips, and group activities.",
+  keywords: ["cuentas claras", "calculadora gastos", "dividir cuentas", "split expenses", "expense calculator", "split bill", "calculadora eventos", "divisor de gastos", "compartir gastos", "event cost calculator", "group expenses", "cuentas claras conservan amistad", "Nico Moccagatta", "Nicolas Moccagatta"],
+  authors: [{ name: "Nicolas Moccagatta", url: "https://www.nicomoccagatta.com" }],
+  creator: "Nicolas Moccagatta",
+  publisher: "Nicolas Moccagatta",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'es_ES',
+    alternateLocale: ['en_US'],
+    url: 'https://cc.nicomoccagatta.com/',
+    siteName: 'Cuentas Claras',
+    title: 'Cuentas Claras - Calculadora de Gastos Compartidos',
+    description: 'Cuentas Claras: herramienta gratuita para dividir gastos en eventos, viajes y salidas grupales. Porque cuentas claras conservan la amistad. Free tool to split expenses for events, trips, and group outings.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Cuentas Claras - Calculadora de Gastos Compartidos',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Cuentas Claras - Calculadora de Gastos Compartidos',
+    description: 'Cuentas Claras: divide gastos fácilmente en eventos y viajes grupales. Cuentas claras conservan la amistad. Free expense splitter for group events and trips.',
+    images: ['/og-image.png'],
+  },
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+  metadataBase: new URL('https://cc.nicomoccagatta.com'),
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export default function RootLayout({
@@ -26,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -1,0 +1,16 @@
+{
+  "name": "Cuentas Claras - Calculadora de Gastos",
+  "short_name": "Cuentas Claras",
+  "description": "Cuentas Claras: calculadora para dividir gastos en eventos y viajes grupales. Cuentas claras conservan la amistad.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff6b35",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
