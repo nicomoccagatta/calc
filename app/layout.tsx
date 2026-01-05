@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { Theme } from "@radix-ui/themes"
+import BackgroundLoader from "@/app/components/background-loader"
 import "@radix-ui/themes/styles.css"
 import "./theme-overrides.css"
 import "./globals.css"
@@ -9,11 +10,15 @@ const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
+  display: "swap",
+  preload: true,
 })
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+  display: "swap",
+  preload: false,
 })
 
 export const metadata: Metadata = {
@@ -78,24 +83,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        <link rel="preconnect" href="https://static.cloudflareinsights.com" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{
+          backgroundColor: '#f8f8f8',
+        }}
       >
         <Theme
           accentColor="orange"
           grayColor="slate"
-          // appearance="dark"
           radius="full"
           style={{
-            backgroundImage:
-              'image-set(url("/background.webp") type("image/webp"), url("/background.jpeg") type("image/jpeg"))',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
             minHeight: '100vh',
             width: '100%',
+            position: 'relative',
           }}
         >
+          <BackgroundLoader />
           {children}
         </Theme>
         <script

@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
       exclude: ['error', 'warn'],
     } : false,
   },
+
+  // Image optimization
+  images: {
+    formats: ['image/webp'],
+  },
 }
 
 export default nextConfig
