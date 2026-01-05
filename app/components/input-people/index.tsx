@@ -58,7 +58,7 @@ export default function InputPeople({
   return (
     <Card className={className}>
       <Form.Root
-        className="grid p-4 w-full "
+        className="grid lg:p-4 w-full "
         onSubmit={e => e.preventDefault()}
       >
         <Form.Field name="name" className="p-4">
@@ -94,7 +94,7 @@ export default function InputPeople({
         </Form.Field>
 
         <Form.Field name="payments">
-          <Flex direction="column" gap="4" p="4">
+          <Flex direction="column" gap="1" p="4">
             <Flex align="center">
               <Text as="div" weight="bold" ml="2" mr="2" size="3" color="bronze">
                 {translations.payments}

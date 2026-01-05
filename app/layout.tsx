@@ -85,7 +85,14 @@ export default function RootLayout({
           grayColor="slate"
           // appearance="dark"
           radius="full"
-          style={{ backgroundImage: `url(${bg.src})`, backgroundSize: 'cover' }}
+          style={{
+            backgroundImage: `url(${bg.src})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            minHeight: '100vh',
+            width: '100%',
+          }}
         >
           {children}
         </Theme>

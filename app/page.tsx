@@ -138,7 +138,7 @@ export default function Home() {
       <Card size="3" variant="classic" className="min-w-full relative" style={{ "--card-border-radius": 'none' }}>
         <Text align="center" as="div" color="bronze" className="md:text-6xl sm:text-4xl text-3xl">{t.header}</Text>
       </Card>
-      <div className="grid items-center justify-items-center p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
+      <div className="grid items-center justify-items-center p-4 gap-16 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col gap-8 items-center w-full">
           <div className="lg:flex justify-around w-full">
             <InputPeople
