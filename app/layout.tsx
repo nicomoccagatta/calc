@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { Theme } from "@radix-ui/themes"
-import bg from '../public/background.jpeg'
+import "@radix-ui/themes/styles.css"
+import "./theme-overrides.css"
 import "./globals.css"
 
 const geistSans = localFont({
@@ -86,7 +87,8 @@ export default function RootLayout({
           // appearance="dark"
           radius="full"
           style={{
-            backgroundImage: `url(${bg.src})`,
+            backgroundImage:
+              'image-set(url("/background.webp") type("image/webp"), url("/background.jpeg") type("image/jpeg"))',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
