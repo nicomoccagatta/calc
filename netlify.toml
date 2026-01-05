@@ -1,8 +1,0 @@
-[build]
-  command = "npm run build"
-  publish = ".next"
-  image = "ubuntu-22.04"
-
-[build.processing]
-  # Skip Netlify post-processing (including prerendering for bots).
-  skip_processing = true
