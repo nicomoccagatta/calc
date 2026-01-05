@@ -8,6 +8,7 @@ import { State, Action } from "@/app/types"
 import { totalPaymentsAmountCalc } from "@/app/utils"
 import { Card, Text, Link, Flex, Switch } from "@radix-ui/themes"
 import { translations, Language } from "@/app/translations"
+import { useTranslationDetection } from "@/app/hooks/useTranslationDetection"
 
 const DisplayResults = dynamic(() => import("@/app/components/display-results"), {
   ssr: false,
@@ -67,25 +68,28 @@ export default function HomeClient() {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { debts, people, personBill, totalAmount } = state
   const [language, setLanguage] = useState<Language>('es')
+  const { isAutoTranslating } = useTranslationDetection()
   const t = useMemo(() => translations[language], [language])
 
   return (
     <div className="pt-8">
-      <div className="absolute top-2 right-4">
-        <Flex align="center" gap="3">
-          <Text size="2" weight="bold" style={{ opacity: language === 'es' ? 1 : 0.5 }}>
-            🇪🇸 ES
-          </Text>
-          <Switch
-            size="2"
-            checked={language === 'en'}
-            onCheckedChange={(checked) => setLanguage(checked ? 'en' : 'es')}
-          />
-          <Text size="2" weight="bold" style={{ opacity: language === 'en' ? 1 : 0.5 }}>
-            🇬🇧 EN
-          </Text>
-        </Flex>
-      </div>
+      {!isAutoTranslating && (
+        <div className="absolute top-2 right-4">
+          <Flex align="center" gap="3">
+            <Text size="2" weight="bold" style={{ opacity: language === 'es' ? 1 : 0.5 }}>
+              🇪🇸 ES
+            </Text>
+            <Switch
+              size="2"
+              checked={language === 'en'}
+              onCheckedChange={(checked) => setLanguage(checked ? 'en' : 'es')}
+            />
+            <Text size="2" weight="bold" style={{ opacity: language === 'en' ? 1 : 0.5 }}>
+              🇬🇧 EN
+            </Text>
+          </Flex>
+        </div>
+      )}
       {/* @ts-expect-error: Let's ignore a compile error like this for custom styling */}
       <Card size="3" variant="classic" className="min-w-full relative" style={{ "--card-border-radius": 'none' }}>
         <Text align="center" as="div" color="bronze" className="md:text-6xl sm:text-4xl text-3xl">{t.header}</Text>
