@@ -6,13 +6,18 @@ import InputPeople from "@/app/components/input-people"
 import { calculateDebts } from "@/app/utils"
 import { State, Action } from "@/app/types"
 import { totalPaymentsAmountCalc } from "@/app/utils"
-import { Card, Text, Link, Flex, Switch } from "@radix-ui/themes"
+import { Card, Text, Link } from "@radix-ui/themes"
 import { translations, Language } from "@/app/translations"
 import { useTranslationDetection } from "@/app/hooks/useTranslationDetection"
 
 const DisplayResults = dynamic(() => import("@/app/components/display-results"), {
   ssr: false,
   loading: () => <div className="lg:w-6/12" />,
+})
+
+const LanguageSwitcher = dynamic(() => import("@/app/components/language-switcher"), {
+  ssr: false,
+  loading: () => <div className="absolute top-2 right-4" />,
 })
 
 function reducer(state: State, action: Action): State {
@@ -74,21 +79,10 @@ export default function HomeClient() {
   return (
     <div className="pt-8">
       {!isAutoTranslating && (
-        <div className="absolute top-2 right-4">
-          <Flex align="center" gap="3">
-            <Text size="2" weight="bold" style={{ opacity: language === 'es' ? 1 : 0.5 }}>
-              🇪🇸 ES
-            </Text>
-            <Switch
-              size="2"
-              checked={language === 'en'}
-              onCheckedChange={(checked) => setLanguage(checked ? 'en' : 'es')}
-            />
-            <Text size="2" weight="bold" style={{ opacity: language === 'en' ? 1 : 0.5 }}>
-              🇬🇧 EN
-            </Text>
-          </Flex>
-        </div>
+        <LanguageSwitcher
+          language={language}
+          onLanguageChange={setLanguage}
+        />
       )}
       {/* @ts-expect-error: Let's ignore a compile error like this for custom styling */}
       <Card size="3" variant="classic" className="min-w-full relative" style={{ "--card-border-radius": 'none' }}>
