@@ -77,7 +77,7 @@ export default function HomeClient() {
   const t = useMemo(() => translations[language], [language])
 
   return (
-    <div className="pt-8">
+    <div className="min-h-screen pt-8 flex flex-col">
       {!isAutoTranslating && (
         <LanguageSwitcher
           language={language}
@@ -88,7 +88,7 @@ export default function HomeClient() {
       <Card size="3" variant="classic" className="min-w-full relative" style={{ "--card-border-radius": 'none' }}>
         <Text align="center" as="div" color="bronze" className="md:text-6xl sm:text-4xl text-3xl">{t.header}</Text>
       </Card>
-      <div className="grid items-center justify-items-center p-4 gap-16 font-[family-name:var(--font-geist-sans)]">
+      <div className="grid items-center justify-items-center p-4 gap-16 font-[family-name:var(--font-geist-sans)] flex-1">
         <main className="flex flex-col gap-8 items-center w-full">
           <div className="lg:flex justify-around w-full">
             <InputPeople
@@ -113,7 +113,7 @@ export default function HomeClient() {
         </main>
       </div>
       {/* @ts-expect-error: Let's ignore a compile error like this for custom styling */}
-      <Card size="2" variant="classic" className="min-w-full mt-8" style={{ "--card-border-radius": 'none' }}>
+      <Card size="2" variant="classic" className="min-w-full mt-auto" style={{ "--card-border-radius": 'none' }}>
         <Text align="center" as="div" size="2" color="gray">
           {t.madeBy}{' '}
           <Link href="https://www.nicomoccagatta.com" target="_blank" rel="noopener noreferrer" color="orange">
